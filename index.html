@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>摄影作品集 | Personal Photography</title>
+    <title>okk摄影作品集 | Personal Photography</title>
     <style>
         * {
             margin: 0;
@@ -84,7 +84,9 @@
             letter-spacing: 4px;
         }
         /* 画廊网格 */
-        .gallery {
+        .gallery {<div class="gallery-item all portrait">
+     <img src="new_portrait.jpg" alt="新人像作品">
+ </div>
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 20px;
@@ -153,18 +155,88 @@
             opacity: 0.5;
             font-size: 14px;
         }
-    </style>
+    </style>/* 分类导航样式 */
+ .nav-tab {
+     display: flex;
+     justify-content: center;
+     gap: 20px;
+     padding: 20px 0;
+     background: #111;
+ }
+ .nav-tab button {
+     background: transparent;
+     border: 1px solid #fff;
+     color: #fff;
+     padding: 8px 16px;
+     cursor: pointer;
+     border-radius: 4px;
+ }
+ .nav-tab button.active {
+     background: #fff;
+     color: #000;
+ }
+ /* 作品展示区样式 */
+ .gallery {
+     display: grid;
+     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+     gap: 15px;
+     padding: 20px;
+     max-width: 1200px;
+     margin: 0 auto;
+ }
+ .gallery-item img {
+     width: 100%;
+     height: 250px;
+     object-fit: cover;
+     border-radius: 8px;
+ }
 </head>
-<body>
+    <script>
+ // 分类筛选功能
+ const buttons = document.querySelectorAll('.nav-tab button');
+ const items = document.querySelectorAll('.gallery-item');
+ buttons.forEach(button => {
+     button.addEventListener('click', () => {
+         // 移除所有按钮的 active 状态
+         buttons.forEach(btn => btn.classList.remove('active'));
+         // 给当前点击的按钮加上 active 状态
+         button.classList.add('active');
+         // 获取点击按钮的分类
+         const tab = button.getAttribute('data-tab');
+         // 筛选显示对应的作品
+         items.forEach(item => {
+             if (tab === 'all' || item.classList.contains(tab)) {
+                 item.style.display = 'block';
+             } else {
+                 item.style.display = 'none';
+             }
+         });
+     });
+ });
+ </script>
+    <body>
     <!-- 首页封面 -->
     <section class="hero">
         <div class="hero-text">
-            <h1>摄影作品集</h1>
-            <p>捕捉光影 · 定格温柔</p>
+            <h1>okk摄影集</h1>
+            <p>捉影 · 定温</p>
         </div>
     </section>
 
     <!-- 分类导航 -->
+        <!-- 作品展示区 -->
+ <div class="gallery">
+     <!-- 全部作品（默认显示） -->
+     <div class="gallery-item all portrait view life">
+         <img src="你的人像照片.jpg" alt="人像作品">
+     </div>
+     <div class="gallery-item all view">
+         <img src="你的风光照片.jpg" alt="风光作品">
+     </div>
+     <div class="gallery-item all life">
+         <img src="你的日常随拍.jpg" alt="日常作品">
+     </div>
+ </div>
     <div class="nav-tab">
         <button class="active" data-tab="all">全部作品</button>
         <button data-tab="portrait">人像摄影</button>
